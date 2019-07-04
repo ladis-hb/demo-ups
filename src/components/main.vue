@@ -1,45 +1,46 @@
 <template>
-    <el-row :gutter="12">
+    <el-row :gutter="12" id="chart">
       <el-col :span="12">
-          <!-- -->
-            <el-card shadow="always" id="zs" style="height:300px"></el-card>
-            
+        <el-card shadow="always" id="zs" style="height:300px"></el-card>            
       </el-col>
-      <el-col :span="12">
-            <el-card shadow="always">
-                zsxs
-            </el-card>
-      </el-col>
+
+        <el-col :span="12" v-for="(val,key) in charts" :key="key">
+            <el-card shadow="always"  :id="val.id" style="height:300px">
+        </el-card></el-col>
     </el-row>
 </template>
 
 <script>
 import echart from 'echarts'
-
 export default {
     name:'emain',
     data(){
         return{
-            charts:category
+            test:Charts.pie,
+            charts:ups,
         }
     },
 
     mounted(){
-        this.chart(document.getElementById('zs'),this.charts)
+        this.chart(document.getElementById('zs'),this.test);
+        this.$nextTick(()=>{
+            
+        })
     },
 
     methods:{
+        //图表渲染
         chart(id,charts){
             echart.init(id)
             .setOption(charts)
-        }
-    }
-
-    
+        },
+    },   
 }
 
+
 //饼图
-var pie = {
+var Charts = {
+      pie:{
         title:{
             txet:'南丁格尔',
             subtext:'测试'
@@ -80,10 +81,11 @@ var pie = {
             }
           }
         ]
-    };
+    },
+
 
 //折线图
-var category = {
+  category:{
     title: {
         text: ''
     },
@@ -144,6 +146,19 @@ var category = {
             data:[820, 932, 901, 934, 1290, 1330, 1320]
         }
     ]
+}
 };
+
+//
+var ups = [
+    {
+        id:'ups1',
+        chart:Charts.pie
+    },
+    {
+        id:'ups2',
+        chart:Charts.pie
+    }
+];
 
 </script>
